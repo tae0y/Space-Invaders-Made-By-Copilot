@@ -1,3 +1,6 @@
+> Written by elbruno
+> refer to https://gist.github.com/elbruno/1d9c32929ade2fafc63afee26bd52a0c
+
 ----
 This is C# Console Project Space Invaders-style Game of which title is Space.AI.NET().
 This prompt is for GitHub Copilot Agent Mode, starting from an empty C# console project.
