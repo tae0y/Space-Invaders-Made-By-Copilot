@@ -3,11 +3,15 @@ using System.Collections.Generic;
 
 public static class GameManager
 {
-    // 게임 상태 관련 변수들 (예시)
+    // 게임 상태 관련 변수들
     private static int score = 0;
     private static int timeSec = 0;
     private static int playerBullets = 3;
-    // ...엔티티 리스트 등 추가 예정...
+
+    // 엔티티
+    private static Player player;
+    private static EnemyManager enemyManager;
+    private static List<Bullet> bullets = new List<Bullet>();
 
     // 더블 버퍼용
     private static char[,]? currentBuffer;
@@ -30,6 +34,13 @@ public static class GameManager
         // 커서 숨김
         Console.CursorVisible = false;
 
+        // 엔티티 초기화
+        int playerStartX = width / 2;
+        int playerStartY = height - 4;
+        player = new Player(playerStartX, playerStartY);
+        enemyManager = new EnemyManager();
+        bullets.Clear();
+
         DateTime startTime = DateTime.Now;
         bool running = true;
         while (running)
@@ -40,11 +51,30 @@ public static class GameManager
                 var key = Console.ReadKey(true);
                 if (key.Key == ConsoleKey.Q)
                     running = false;
-                // ...플레이어 이동/발사 등 추가...
+                else if (key.Key == ConsoleKey.LeftArrow)
+                    player.MoveLeft(2); // 박스 안에서만 이동
+                else if (key.Key == ConsoleKey.RightArrow)
+                    player.MoveRight(width - 3);
+                else if (key.Key == ConsoleKey.Spacebar)
+                {
+                    if (player.CanShoot())
+                    {
+                        bullets.Add(new Bullet(player.X, player.Y - 1, true));
+                        player.Shoot();
+                    }
+                }
             }
 
-            // 엔티티 업데이트 (플레이어, 적, 총알 등)
-            // ...구현 예정...
+            // 총알 이동 및 삭제
+            for (int i = bullets.Count - 1; i >= 0; i--)
+            {
+                bullets[i].Move();
+                if (bullets[i].Y < 2 || bullets[i].Y > height - 2)
+                {
+                    if (bullets[i].IsPlayer) player.BulletDestroyed();
+                    bullets.RemoveAt(i);
+                }
+            }
 
             // UI 정보 갱신
             timeSec = (int)(DateTime.Now - startTime).TotalSeconds;
@@ -52,7 +82,9 @@ public static class GameManager
             // 버퍼에 박스/엔티티/UI 그리기
             DrawBox(boxLeft, boxTop, boxWidth, boxHeight);
             DrawUI(boxLeft, boxTop);
-            // ...플레이어/적/총알 등 추가...
+            DrawPlayer();
+            DrawEnemies();
+            DrawBullets();
 
             // 더블 버퍼 렌더링
             RenderDiff(width, height);
@@ -60,6 +92,49 @@ public static class GameManager
             // 프레임 속도 조절
             System.Threading.Thread.Sleep(GetFrameDelay(speed));
         }
+}
+
+    private static void DrawPlayer()
+    {
+        if (currentBuffer == null || colorBuffer == null || player == null) return;
+        currentBuffer[player.X, player.Y] = player.Symbol;
+        colorBuffer[player.X, player.Y] = player.Color;
+    }
+
+    private static void DrawEnemies()
+    {
+        if (currentBuffer == null || colorBuffer == null || enemyManager == null) return;
+        foreach (var enemy in enemyManager.Enemies)
+        {
+            if (!enemy.IsAlive) continue;
+            for (int i = 0; i < enemy.Symbol.Length; i++)
+            {
+                int ex = enemy.X + i;
+                int ey = enemy.Y;
+                if (ex >= 2 && ex < currentBuffer.GetLength(0) - 2 && ey >= 2 && ey < currentBuffer.GetLength(1) - 2)
+                {
+                    currentBuffer[ex, ey] = enemy.Symbol[i];
+                    colorBuffer[ex, ey] = enemy.Color;
+                }
+            }
+        }
+    }
+
+    private static void DrawBullets()
+    {
+        if (currentBuffer == null || colorBuffer == null) return;
+        foreach (var bullet in bullets)
+        {
+            if (!bullet.IsActive) continue;
+            int bx = bullet.X;
+            int by = bullet.Y;
+            if (bx >= 2 && bx < currentBuffer.GetLength(0) - 2 && by >= 2 && by < currentBuffer.GetLength(1) - 2)
+            {
+                currentBuffer[bx, by] = bullet.Symbol;
+                colorBuffer[bx, by] = bullet.Color;
+            }
+        }
+    }
     }
 
     private static int GetFrameDelay(int speed)
@@ -129,6 +204,6 @@ public static class GameManager
     // ScreenshotService 연동용: 현재 렌더 상태 반환
     public static (char[,], ConsoleColor[,]) GetRenderState()
     {
-    return (prevBuffer ?? new char[1,1], prevColorBuffer ?? new ConsoleColor[1,1]);
+        return (prevBuffer ?? new char[1,1], prevColorBuffer ?? new ConsoleColor[1,1]);
     }
 }
