@@ -78,7 +78,7 @@ public static class GameManager
             bulletResetRemain = bulletResetInterval - (DateTime.Now - lastBulletReset).TotalSeconds;
             if (bulletResetRemain <= 0)
             {
-                player.ActiveBullets = 0;
+                player.ActiveBullets = 3;
                 lastBulletReset = DateTime.Now;
                 bulletResetRemain = bulletResetInterval;
             }
