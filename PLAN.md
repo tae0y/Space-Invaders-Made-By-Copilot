@@ -2,7 +2,7 @@
 
 ## 개발 진행사항 체크리스트
 - [x] Program.cs: 콘솔 인코딩 및 커서 숨김, StartScreen 호출, 속도 입력 처리, GameManager 루프 진입
-- [ ] StartScreen.cs: 타이틀/설명/조작법/속도 선택 화면 레이아웃 구현 (콘솔 크기 기반 정렬)
+- [x] StartScreen.cs: 타이틀/설명/조작법/속도 선택 화면 레이아웃 구현 (콘솔 크기 기반 정렬)
 - [ ] GameManager.cs: 게임 상태 관리, 메인 루프, 입력 처리, 더블 버퍼 렌더링, UI/박스/엔티티 그리기, ScreenshotService 연동
 - [ ] Player.cs: 플레이어 이동/발사/제한구역 처리, 최대 3발 총알 관리
 - [ ] Enemy.cs: 8개 적(2/3글자), 행별 이동/스윕/하강, 적 총알 발사 로직
