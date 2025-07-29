@@ -7,6 +7,7 @@ public static class GameManager
     private static int score = 0;
     private static int timeSec = 0;
     private static int playerBullets = 3;
+    private static double bulletResetRemain = 2.0;
 
     // 엔티티
     private static Player? player;
@@ -74,10 +75,12 @@ public static class GameManager
             }
 
             // 2초마다 Bullet 개수 초기화
-            if ((DateTime.Now - lastBulletReset).TotalSeconds >= bulletResetInterval)
+            bulletResetRemain = bulletResetInterval - (DateTime.Now - lastBulletReset).TotalSeconds;
+            if (bulletResetRemain <= 0)
             {
                 player.ActiveBullets = 0;
                 lastBulletReset = DateTime.Now;
+                bulletResetRemain = bulletResetInterval;
             }
 
             // 적 이동 (일정 프레임마다)
@@ -229,7 +232,9 @@ public static class GameManager
 
     private static void DrawUI(int left, int top)
     {
-        string ui = $"Score: {score:D4}   Time: {timeSec:D2}s   Bullets: {playerBullets}/3";
+    // Bullet Reset 남은 시간 표시
+    double remain = bulletResetRemain;
+    string ui = $"Score: {score:D4}   Time: {timeSec:D2}s   Bullets: {player?.ActiveBullets ?? 0}/3   Bullet Reset: {remain:0.0}s";
         if (currentBuffer == null || colorBuffer == null) return;
         for (int i = 0; i < ui.Length && left + 2 + i < currentBuffer.GetLength(0); i++)
         {
