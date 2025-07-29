@@ -135,7 +135,6 @@ public static class GameManager
             }
         }
     }
-    }
 
     private static int GetFrameDelay(int speed)
     {
