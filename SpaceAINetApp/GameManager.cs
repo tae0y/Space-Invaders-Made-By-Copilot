@@ -43,6 +43,8 @@ public static class GameManager
 
         DateTime startTime = DateTime.Now;
         bool running = true;
+        int enemyMoveTick = 0;
+        int enemyMoveInterval = 10; // 10프레임마다 적 이동
         while (running)
         {
             // 입력 처리
@@ -65,6 +67,14 @@ public static class GameManager
                 }
             }
 
+            // 적 이동 (일정 프레임마다)
+            enemyMoveTick++;
+            if (enemyMoveTick >= enemyMoveInterval)
+            {
+                enemyManager.MoveEnemies(2, width - 3);
+                enemyMoveTick = 0;
+            }
+
             // 총알 이동 및 삭제
             for (int i = bullets.Count - 1; i >= 0; i--)
             {
@@ -73,7 +83,30 @@ public static class GameManager
                 {
                     if (bullets[i].IsPlayer) player.BulletDestroyed();
                     bullets.RemoveAt(i);
+                    continue;
                 }
+
+                // 총알-적 충돌 판정 (플레이어 총알만)
+                if (bullets[i].IsPlayer)
+                {
+                    foreach (var enemy in enemyManager.Enemies)
+                    {
+                        if (!enemy.IsAlive) continue;
+                        // 적 심볼 길이만큼 충돌 체크
+                        for (int k = 0; k < enemy.Symbol.Length; k++)
+                        {
+                            if (bullets[i].X == enemy.X + k && bullets[i].Y == enemy.Y)
+                            {
+                                enemy.IsAlive = false;
+                                bullets.RemoveAt(i);
+                                player.BulletDestroyed();
+                                score += 100;
+                                goto BulletLoopBreak;
+                            }
+                        }
+                    }
+                }
+                BulletLoopBreak: ;
             }
 
             // UI 정보 갱신

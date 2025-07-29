@@ -24,6 +24,9 @@ public class Enemy
 public class EnemyManager
 {
     public List<Enemy> Enemies { get; private set; } = new List<Enemy>();
+    private int direction = 1; // 1: 오른쪽, -1: 왼쪽
+    private int moveDownStep = 1;
+
     public EnemyManager()
     {
         // 상단 5개: ><, oo, ><, oo, >< (Red)
@@ -37,5 +40,37 @@ public class EnemyManager
         Enemies.Add(new Enemy(15, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
         Enemies.Add(new Enemy(23, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
     }
-    // 이동, 스윕, 하강 등 메서드 추가 예정
+
+    // 적 전체 좌우 이동 및 벽에 닿으면 한 줄 아래로 이동
+    public void MoveEnemies(int leftBound, int rightBound)
+    {
+        bool needToMoveDown = false;
+        foreach (var enemy in Enemies)
+        {
+            if (!enemy.IsAlive) continue;
+            int nextX = enemy.X + direction;
+            if (nextX < leftBound || nextX + enemy.Symbol.Length - 1 > rightBound)
+            {
+                needToMoveDown = true;
+                break;
+            }
+        }
+        if (needToMoveDown)
+        {
+            foreach (var enemy in Enemies)
+            {
+                if (!enemy.IsAlive) continue;
+                enemy.Y += moveDownStep;
+            }
+            direction *= -1;
+        }
+        else
+        {
+            foreach (var enemy in Enemies)
+            {
+                if (!enemy.IsAlive) continue;
+                enemy.X += direction;
+            }
+        }
+    }
 }
