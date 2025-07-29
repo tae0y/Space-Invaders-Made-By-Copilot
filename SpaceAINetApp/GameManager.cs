@@ -10,10 +10,10 @@ public static class GameManager
     // ...엔티티 리스트 등 추가 예정...
 
     // 더블 버퍼용
-    private static char[,] currentBuffer;
-    private static ConsoleColor[,] colorBuffer;
-    private static char[,] prevBuffer;
-    private static ConsoleColor[,] prevColorBuffer;
+    private static char[,]? currentBuffer;
+    private static ConsoleColor[,]? colorBuffer;
+    private static char[,]? prevBuffer;
+    private static ConsoleColor[,]? prevColorBuffer;
 
     public static void RunGameLoop(int speed)
     {
