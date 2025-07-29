@@ -27,18 +27,18 @@ public class EnemyManager
     private int direction = 1; // 1: 오른쪽, -1: 왼쪽
     private int moveDownStep = 1;
 
-    public EnemyManager()
+    public EnemyManager(int topY = 2, int bottomY = 4)
     {
         // 상단 5개: ><, oo, ><, oo, >< (Red)
-        Enemies.Add(new Enemy(5, 2, "2char", "><", ConsoleColor.Red));
-        Enemies.Add(new Enemy(9, 2, "2char", "oo", ConsoleColor.Red));
-        Enemies.Add(new Enemy(13, 2, "2char", "><", ConsoleColor.Red));
-        Enemies.Add(new Enemy(17, 2, "2char", "oo", ConsoleColor.Red));
-        Enemies.Add(new Enemy(21, 2, "2char", "><", ConsoleColor.Red));
+        Enemies.Add(new Enemy(5, topY, "2char", "><", ConsoleColor.Red));
+        Enemies.Add(new Enemy(9, topY, "2char", "oo", ConsoleColor.Red));
+        Enemies.Add(new Enemy(13, topY, "2char", "><", ConsoleColor.Red));
+        Enemies.Add(new Enemy(17, topY, "2char", "oo", ConsoleColor.Red));
+        Enemies.Add(new Enemy(21, topY, "2char", "><", ConsoleColor.Red));
         // 하단 3개: /O\ (DarkYellow)
-        Enemies.Add(new Enemy(7, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
-        Enemies.Add(new Enemy(15, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
-        Enemies.Add(new Enemy(23, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
+        Enemies.Add(new Enemy(7, bottomY, "3char", "/O\\", ConsoleColor.DarkYellow));
+        Enemies.Add(new Enemy(15, bottomY, "3char", "/O\\", ConsoleColor.DarkYellow));
+        Enemies.Add(new Enemy(23, bottomY, "3char", "/O\\", ConsoleColor.DarkYellow));
     }
 
     // 적 전체 좌우 이동 및 벽에 닿으면 한 줄 아래로 이동

@@ -9,8 +9,8 @@ public static class GameManager
     private static int playerBullets = 3;
 
     // 엔티티
-    private static Player player;
-    private static EnemyManager enemyManager;
+    private static Player? player;
+    private static EnemyManager? enemyManager;
     private static List<Bullet> bullets = new List<Bullet>();
 
     // 더블 버퍼용
@@ -21,8 +21,10 @@ public static class GameManager
 
     public static void RunGameLoop(int speed)
     {
-        int width = Console.WindowWidth;
-        int height = Console.WindowHeight;
+    int maxBoardWidth = 40; // 게임 보드 최대 가로 길이
+    int width = Math.Min(Console.WindowWidth, maxBoardWidth);
+    int maxBoardHeight = 20; // 게임 보드 최대 높이
+    int height = Math.Min(Console.WindowHeight, maxBoardHeight);
         int boxLeft = 1, boxTop = 1, boxWidth = width - 2, boxHeight = height - 2;
 
         // 버퍼 초기화
@@ -38,7 +40,8 @@ public static class GameManager
         int playerStartX = width / 2;
         int playerStartY = height - 4;
         player = new Player(playerStartX, playerStartY);
-        enemyManager = new EnemyManager();
+    // UI가 top+1에 그려지므로 적은 그 아래(예: 3, 5)에 위치하도록 생성
+    enemyManager = new EnemyManager(3, 5); // EnemyManager 생성자에 시작 Y값 전달
         bullets.Clear();
 
         DateTime startTime = DateTime.Now;
