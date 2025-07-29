@@ -5,7 +5,7 @@ public class Player
     public int X { get; set; }
     public int Y { get; set; }
     public int MaxBullets { get; } = 3;
-    public int ActiveBullets { get; set; } = 0;
+    public int ActiveBullets { get; set; } = 3;
     public ConsoleColor Color { get; } = ConsoleColor.Cyan;
     public char Symbol { get; } = 'A';
 
@@ -25,14 +25,14 @@ public class Player
     }
     public bool CanShoot()
     {
-        return ActiveBullets < MaxBullets;
+    return ActiveBullets > 0;
     }
     public void Shoot()
     {
-        if (CanShoot()) ActiveBullets++;
+    if (CanShoot()) ActiveBullets--;
     }
     public void BulletDestroyed()
     {
-        if (ActiveBullets > 0) ActiveBullets--;
+    // 충돌 시 총알 개수 변화 없음 (Shoot에서 이미 감소)
     }
 }
