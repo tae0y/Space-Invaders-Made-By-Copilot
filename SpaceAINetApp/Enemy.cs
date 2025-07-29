@@ -73,4 +73,23 @@ public class EnemyManager
             }
         }
     }
+
+    // 적이 총알을 발사 (아래 방향)
+    public List<Bullet> ShootEnemies()
+    {
+        var newBullets = new List<Bullet>();
+        var rand = new Random();
+        foreach (var enemy in Enemies)
+        {
+            if (!enemy.IsAlive) continue;
+            // 일정 확률로 발사 (예: 10% 확률)
+            if (rand.NextDouble() < 0.1)
+            {
+                int bulletX = enemy.X + enemy.Symbol.Length / 2;
+                int bulletY = enemy.Y + 1;
+                newBullets.Add(new Bullet(bulletX, bulletY, false));
+            }
+        }
+        return newBullets;
+    }
 }

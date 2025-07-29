@@ -73,6 +73,9 @@ public static class GameManager
             {
                 enemyManager.MoveEnemies(2, width - 3);
                 enemyMoveTick = 0;
+                // 적 총알 발사 (적 이동 주기와 동일하게)
+                var enemyBullets = enemyManager.ShootEnemies();
+                bullets.AddRange(enemyBullets);
             }
 
             // 총알 이동 및 삭제
@@ -104,6 +107,17 @@ public static class GameManager
                                 goto BulletLoopBreak;
                             }
                         }
+                    }
+                }
+                // 적 총알-플레이어 충돌 판정
+                else
+                {
+                    if (bullets[i].X == player.X && bullets[i].Y == player.Y)
+                    {
+                        // 플레이어 피격 처리 (여기서는 단순히 게임 종료)
+                        running = false;
+                        bullets.RemoveAt(i);
+                        goto BulletLoopBreak;
                     }
                 }
                 BulletLoopBreak: ;
