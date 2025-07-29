@@ -32,10 +32,10 @@ public class EnemyManager
         Enemies.Add(new Enemy(13, 2, "2char", "><", ConsoleColor.Red));
         Enemies.Add(new Enemy(17, 2, "2char", "oo", ConsoleColor.Red));
         Enemies.Add(new Enemy(21, 2, "2char", "><", ConsoleColor.Red));
-    // 하단 3개: /O\ (DarkYellow)
-    Enemies.Add(new Enemy(7, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
-    Enemies.Add(new Enemy(15, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
-    Enemies.Add(new Enemy(23, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
+        // 하단 3개: /O\ (DarkYellow)
+        Enemies.Add(new Enemy(7, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
+        Enemies.Add(new Enemy(15, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
+        Enemies.Add(new Enemy(23, 4, "3char", "/O\\", ConsoleColor.DarkYellow));
     }
     // 이동, 스윕, 하강 등 메서드 추가 예정
 }
