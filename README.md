@@ -5,20 +5,14 @@ C# 콘솔 Space Invaders 스타일 게임
 ## 실행 방법
 
 1. .NET SDK가 설치되어 있어야 합니다. (https://dotnet.microsoft.com/download)
-2. 소스 파일이 모두 같은 폴더에 있는지 확인하세요.
-3. 터미널에서 해당 폴더로 이동합니다.
-
-### 새 프로젝트로 실행 (csproj 파일이 없는 경우)
-```zsh
-dotnet new console -n SpaceAINetApp --force
-dotnet build
-dotnet run
-```
-
-### 기존 프로젝트 실행 (csproj 파일이 있는 경우)
-```zsh
-dotnet run
-```
+2. 터미널에서 프로젝트 폴더로 이동합니다.
+   ```zsh
+   cd /SpaceAINetApp
+   ```
+3. 아래 명령어로 바로 실행합니다.
+   ```zsh
+   dotnet run
+   ```
 
 ## 게임 조작법
 - ← : 왼쪽 이동

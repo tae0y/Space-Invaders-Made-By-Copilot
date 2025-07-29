@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "QmbC/YzS2sQ=",
+  "dgSpecHash": "VJSDvrDjAsY=",
   "success": true,
   "projectFilePath": "/Users/bachtaeyeong/10_SrcHub/ossca/250728-genai-create-app/SpaceAINetApp/SpaceAINetApp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/bachtaeyeong/.nuget/packages/microsoft.win32.systemevents/9.0.7/microsoft.win32.systemevents.9.0.7.nupkg.sha512",
+    "/Users/bachtaeyeong/.nuget/packages/system.drawing.common/9.0.7/system.drawing.common.9.0.7.nupkg.sha512"
+  ],
   "logs": []
 }
