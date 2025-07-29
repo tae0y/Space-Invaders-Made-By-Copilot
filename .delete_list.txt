@@ -1,8 +1,0 @@
-Bullet.cs
-Enemy.cs
-GameManager.cs
-Player.cs
-Program.cs
-ScreenshotService.cs
-RenderState.cs
-StartScreen.cs

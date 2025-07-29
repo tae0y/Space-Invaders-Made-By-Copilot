@@ -76,6 +76,7 @@ public static class GameManager
     private static void DrawBox(int left, int top, int w, int h)
     {
         // 박스 테두리 (유니코드 박스문자)
+        if (currentBuffer == null) return;
         currentBuffer[left, top] = '┌';
         currentBuffer[left + w - 1, top] = '┐';
         currentBuffer[left, top + h - 1] = '└';
@@ -95,6 +96,7 @@ public static class GameManager
     private static void DrawUI(int left, int top)
     {
         string ui = $"Score: {score:D4}   Time: {timeSec:D2}s   Bullets: {playerBullets}/3";
+        if (currentBuffer == null || colorBuffer == null) return;
         for (int i = 0; i < ui.Length && left + 2 + i < currentBuffer.GetLength(0); i++)
         {
             currentBuffer[left + 2 + i, top + 1] = ui[i];
@@ -104,6 +106,7 @@ public static class GameManager
 
     private static void RenderDiff(int width, int height)
     {
+        if (currentBuffer == null || colorBuffer == null || prevBuffer == null || prevColorBuffer == null) return;
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
@@ -126,6 +129,6 @@ public static class GameManager
     // ScreenshotService 연동용: 현재 렌더 상태 반환
     public static (char[,], ConsoleColor[,]) GetRenderState()
     {
-        return (prevBuffer, prevColorBuffer);
+    return (prevBuffer ?? new char[1,1], prevColorBuffer ?? new ConsoleColor[1,1]);
     }
 }
