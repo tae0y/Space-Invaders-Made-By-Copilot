@@ -3,11 +3,11 @@
 ## 개발 진행사항 체크리스트
 - [x] Program.cs: 콘솔 인코딩 및 커서 숨김, StartScreen 호출, 속도 입력 처리, GameManager 루프 진입
 - [x] StartScreen.cs: 타이틀/설명/조작법/속도 선택 화면 레이아웃 구현 (콘솔 크기 기반 정렬)
-- [ ] GameManager.cs: 게임 상태 관리, 메인 루프, 입력 처리, 더블 버퍼 렌더링, UI/박스/엔티티 그리기, ScreenshotService 연동
-- [ ] Player.cs: 플레이어 이동/발사/제한구역 처리, 최대 3발 총알 관리
-- [ ] Enemy.cs: 8개 적(2/3글자), 행별 이동/스윕/하강, 적 총알 발사 로직
-- [ ] Bullet.cs: 총알 이동/충돌 판정, 플레이어/적 총알 구분
-- [ ] ScreenshotService.cs: "screenshoots" 폴더 생성/초기화, 자동/수동 스크린샷, 렌더 버퍼 기반 이미지 생성
+- [x] GameManager.cs: 게임 상태 관리, 메인 루프, 입력 처리, 더블 버퍼 렌더링, UI/박스/엔티티 그리기, ScreenshotService 연동
+- [x] Player.cs: 플레이어 이동/발사/제한구역 처리, 최대 3발 총알 관리
+- [x] Enemy.cs: 8개 적(2/3글자), 행별 이동/스윕/하강, 적 총알 발사 로직
+- [x] Bullet.cs: 총알 이동/충돌 판정, 플레이어/적 총알 구분
+- [x] ScreenshotService.cs: "screenshoots" 폴더 생성/초기화, 자동/수동 스크린샷, 렌더 버퍼 기반 이미지 생성
 - [ ] RenderState.cs(선택): 프레임 버퍼 관리
 
 ## 개발완료 검증 체크리스트
