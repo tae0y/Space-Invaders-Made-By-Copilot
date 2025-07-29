@@ -21,7 +21,7 @@ public static class GameManager
 
     public static void RunGameLoop(int speed)
     {
-    int maxBoardWidth = 40; // 게임 보드 최대 가로 길이
+    int maxBoardWidth = 100; // 게임 보드 최대 가로 길이
     int width = Math.Min(Console.WindowWidth, maxBoardWidth);
     int maxBoardHeight = 20; // 게임 보드 최대 높이
     int height = Math.Min(Console.WindowHeight, maxBoardHeight);
@@ -37,9 +37,11 @@ public static class GameManager
         Console.CursorVisible = false;
 
         // 엔티티 초기화
-        int playerStartX = width / 2;
-        int playerStartY = height - 4;
-        player = new Player(playerStartX, playerStartY);
+    int playerStartX = width / 2;
+    int playerStartY = height - 4;
+    player = new Player(playerStartX, playerStartY);
+    int bulletResetInterval = 2; // 2초마다 초기화
+    DateTime lastBulletReset = DateTime.Now;
     // UI가 top+1에 그려지므로 적은 그 아래(예: 3, 5)에 위치하도록 생성
     enemyManager = new EnemyManager(3, 5); // EnemyManager 생성자에 시작 Y값 전달
         bullets.Clear();
@@ -62,12 +64,20 @@ public static class GameManager
                     player.MoveRight(width - 3);
                 else if (key.Key == ConsoleKey.Spacebar)
                 {
+                    // 2초 이내에 최대 3발만 발사 가능
                     if (player.CanShoot())
                     {
                         bullets.Add(new Bullet(player.X, player.Y - 1, true));
                         player.Shoot();
                     }
                 }
+            }
+
+            // 2초마다 Bullet 개수 초기화
+            if ((DateTime.Now - lastBulletReset).TotalSeconds >= bulletResetInterval)
+            {
+                player.ActiveBullets = 0;
+                lastBulletReset = DateTime.Now;
             }
 
             // 적 이동 (일정 프레임마다)
